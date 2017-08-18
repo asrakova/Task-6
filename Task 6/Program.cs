@@ -8,7 +8,7 @@ namespace Task_6
 {
     class Program
     {
-        static double[] AK(double[] stock, int k, int m, double l, ref int numL)
+        static double[] AK(ref double[] stock, int k, int m, double l, ref int numL)
         {
             double res = 0;
             if (k == 1)
@@ -18,18 +18,13 @@ namespace Task_6
             else if (k == 3)
                 res = stock[3];
             else
-            {
-                double ak1 = AK(stock, k - 1, m, l, ref numL)[k - 1];
-                double ak2 = AK(stock, k - 2, m, l, ref numL)[k - 2];
-                res = 7.0 / 3.0;
-                res = (res * ak1 + ak2) / 2 *
-                     AK(stock, k - 3, m, l, ref numL)[k - 3];
-            }
+                res = (7.0 / 3.0 * AK(ref stock, k - 1, m, l, ref numL)[k - 1] + stock[k-2]) / 2 * stock[k - 3];
             if (numL == m)
                 return stock;
             stock[k] = res;
             if (stock[k] > l)
                 numL++;
+
             return stock;
         }
 
@@ -51,7 +46,7 @@ namespace Task_6
             int m = int.Parse(Console.ReadLine());
             int l = int.Parse(Console.ReadLine());
             int numL = 0;
-            stock = AK(stock, n, m, l, ref numL);
+            stock = AK(ref stock, n, m, l, ref numL);
             foreach (double t in stock)
                 Console.Write("{0} ", t);
             Console.WriteLine();
