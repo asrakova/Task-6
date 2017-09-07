@@ -89,9 +89,9 @@ namespace Task_6
             Console.WriteLine("Введите третий элемент последовательности");
             stock[3] = ReadDoubly();
             Console.WriteLine("Введите количество элементов, которые нужно найти больших L");
-            int m = int.Parse(Console.ReadLine());
+            int m = ReadPositive();
             Console.WriteLine("Введите значение L");
-            int l = int.Parse(Console.ReadLine());
+            double l = ReadDoubly();
             
             // Составляем последовательность
             int numL = 0;
@@ -99,11 +99,17 @@ namespace Task_6
 
             // Выводим результат
             Console.WriteLine("Результат: ");
-            foreach (double t in stock)
-                Console.Write("{0} ", t);
-            Console.WriteLine();
-            if (numL == m) Console.WriteLine("Причина остановки: найдены M элементов, которые больше L");
+            int stop = n;
+            if (numL == m)
+            {
+                Console.WriteLine("Причина остановки: найдены M элементов, которые больше L");
+                stop = m;
+            }
             else Console.WriteLine("Причина остановки: найдены N элементов");
+            for(int i=1; i<=stop; i++)
+                Console.Write("{0} ", stock[i]);
+            Console.WriteLine();
+            
             Console.ReadLine();
         }
     }
